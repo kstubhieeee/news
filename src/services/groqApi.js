@@ -1,15 +1,26 @@
 import axios from 'axios';
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const GROQ_API_URL = 'https://api.groq.com/v1/summarize';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export const summarizeText = async (text) => {
   try {
     const response = await axios.post(
       GROQ_API_URL,
       {
-        text: text,
-        summaryLength: 'short', 
+        model: "mixtral-8x7b-32768",
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant that summarizes news articles concisely."
+          },
+          {
+            role: "user",
+            content: `Please provide a brief summary of this news article: ${text}`
+          }
+        ],
+        temperature: 0.5,
+        max_tokens: 150
       },
       {
         headers: {
@@ -19,10 +30,8 @@ export const summarizeText = async (text) => {
       }
     );
 
-    console.log('API response:', response.data); 
-
-    if (response.data && response.data.summary) {
-      return response.data.summary;
+    if (response.data && response.data.choices && response.data.choices[0]) {
+      return response.data.choices[0].message.content.trim();
     } else {
       throw new Error('No summary found in the response.');
     }
