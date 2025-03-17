@@ -8,7 +8,7 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 import './App.css';
 
 const categories = [
-  { id: 'general', name: 'General', icon: '📰' },
+  { id: 'general', name: 'Top Headlines', icon: '📰' },
   { id: 'business', name: 'Business', icon: '💼' },
   { id: 'technology', name: 'Technology', icon: '💻' },
   { id: 'entertainment', name: 'Entertainment', icon: '🎬' },
