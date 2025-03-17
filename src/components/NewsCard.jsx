@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { summarizeText } from '../services/groqApi.js';
+import { BookmarkIcon as BookmarkOutline } from '@heroicons/react/24/outline';
+import { BookmarkIcon as BookmarkSolid } from '@heroicons/react/24/solid';
+import { ShareIcon } from '@heroicons/react/24/outline';
 
 export default function NewsCard({ article, darkMode }) {
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleGetSummary = async () => {
     setLoading(true);
@@ -12,8 +16,26 @@ export default function NewsCard({ article, darkMode }) {
     setLoading(false);
   };
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: article.title,
+          text: article.description,
+          url: article.url,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback to copying to clipboard
+      navigator.clipboard.writeText(article.url);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   return (
-    <div className={`rounded-xl overflow-hidden transition-all duration-200 ${
+    <div className={`rounded-xl overflow-hidden transition-all duration-200 transform hover:scale-[1.02] ${
       darkMode 
         ? 'bg-gray-800 shadow-lg shadow-gray-900/50' 
         : 'bg-white shadow-lg shadow-gray-200/50'
@@ -23,16 +45,36 @@ export default function NewsCard({ article, darkMode }) {
           <img 
             src={article.urlToImage} 
             alt={article.title}
-            className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+            className="h-full w-full object-cover"
           />
+          <div className="absolute top-2 right-2 flex space-x-2">
+            <button
+              onClick={() => setIsBookmarked(!isBookmarked)}
+              className="p-2 rounded-full bg-white/90 hover:bg-white transition-colors"
+            >
+              {isBookmarked ? (
+                <BookmarkSolid className="h-5 w-5 text-blue-500" />
+              ) : (
+                <BookmarkOutline className="h-5 w-5 text-gray-600" />
+              )}
+            </button>
+            <button
+              onClick={handleShare}
+              className="p-2 rounded-full bg-white/90 hover:bg-white transition-colors"
+            >
+              <ShareIcon className="h-5 w-5 text-gray-600" />
+            </button>
+          </div>
         </div>
       )}
+      
       <div className="p-6">
         <h3 className={`text-xl font-semibold mb-2 ${
           darkMode ? 'text-white' : 'text-gray-900'
         }`}>
           {article.title}
         </h3>
+        
         <p className={`mb-4 ${
           darkMode ? 'text-gray-300' : 'text-gray-600'
         }`}>
@@ -43,11 +85,16 @@ export default function NewsCard({ article, darkMode }) {
           <button
             onClick={handleGetSummary}
             disabled={loading}
-            className={`relative px-4 py-2 rounded-md transition-all duration-200 ${
-              loading 
+            className={`
+              relative px-4 py-2 rounded-md
+              transition-all duration-200
+              ${loading 
                 ? 'cursor-not-allowed opacity-70' 
                 : 'hover:scale-105 hover:shadow-lg'
-            } bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md shadow-blue-500/20`}
+              }
+              bg-gradient-to-r from-blue-500 to-indigo-600
+              text-white shadow-md shadow-blue-500/20
+            `}
           >
             {loading ? (
               <div className="flex items-center">
