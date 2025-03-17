@@ -23,18 +23,18 @@ export default function Sidebar({
         fixed lg:static inset-y-0 left-0 z-50
         w-64 transform transition-transform duration-200 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        ${darkMode ? 'bg-gray-800' : 'bg-white'}
-        border-r ${darkMode ? 'border-gray-700' : 'border-gray-200'}
+        ${darkMode ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-gray-200'}
+        border-r
       `}>
         <div className="h-16 flex items-center justify-between px-4 lg:hidden">
-          <h2 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h2 className={`font-semibold ${darkMode ? 'text-zinc-100' : 'text-gray-900'}`}>
             Categories
           </h2>
           <button
             onClick={() => setIsOpen(false)}
             className={`p-2 rounded-md ${
               darkMode 
-                ? 'text-gray-300 hover:bg-gray-700' 
+                ? 'text-zinc-400 hover:bg-zinc-800' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -54,9 +54,9 @@ export default function Sidebar({
                 w-full px-4 py-2 rounded-lg mb-1 text-left flex items-center
                 transition-all duration-200
                 ${activeCategory === category.id
-                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white'
+                  ? 'bg-green-500 text-white'
                   : darkMode
-                    ? 'text-gray-300 hover:bg-gray-700'
+                    ? 'text-zinc-400 hover:bg-zinc-800'
                     : 'text-gray-700 hover:bg-gray-100'
                 }
               `}

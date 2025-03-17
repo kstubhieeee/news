@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-200 ${
-      darkMode ? 'dark bg-gray-900' : 'bg-gray-50'
+      darkMode ? 'dark bg-zinc-950' : 'bg-gray-50'
     }`}>
       <Navbar 
         darkMode={darkMode} 

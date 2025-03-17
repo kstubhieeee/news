@@ -15,10 +15,10 @@ export default function SearchBar({ searchQuery, setSearchQuery, darkMode }) {
         placeholder="Search news articles..."
         className={`
           block w-full mt-16 pl-10 pr-3 py-2 rounded-lg
-          border ${darkMode ? 'border-gray-700' : 'border-gray-300'}
+          border ${darkMode ? 'border-zinc-700' : 'border-gray-300'}
           ${darkMode 
-            ? 'bg-gray-800 text-white placeholder-gray-400' 
-            : 'bg-white text-gray-900 placeholder-gray-500'
+            ? 'bg-zinc-800 text-white placeholder-gray-400' 
+            : 'bg-white text-zinc-900 placeholder-gray-500'
           }
           focus:outline-none focus:ring-2 focus:ring-blue-500
           transition-colors duration-200
