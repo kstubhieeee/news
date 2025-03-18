@@ -2,7 +2,7 @@ export default function Footer({ darkMode }) {
   return (
     <footer className={`py-8 transition-colors duration-200 ${
       darkMode 
-        ? 'bg-gray-800 border-t border-gray-700' 
+        ? 'bg-zinc-800 border-t border-zinc-700' 
         : 'bg-white border-t border-gray-200'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

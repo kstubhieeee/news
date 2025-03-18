@@ -146,12 +146,12 @@ export default function NewsCard({ article, darkMode }) {
               <span>Share</span>
             </button>
           </div>
-          
+        
           <a 
             href={article.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-green-500 hover:text-green-600 transition-colors font-medium"
+            className="text-green-500 hover:text-green-600  transition-colors font-medium"
           >
             Read More →
           </a>
